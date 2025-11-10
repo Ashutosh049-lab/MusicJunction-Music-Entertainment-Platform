@@ -3,6 +3,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
@@ -22,6 +23,11 @@ const generateToken = (user) => {
 
 exports.register = async (req, res) => {
   try {
+    // Provide clearer error when DB is not connected
+    if (mongoose.connection?.readyState !== 1) {
+      return res.status(503).json({ message: 'Database not connected. Please try again shortly.' });
+    }
+
     const { name, email, password, role, username: rawUsername, musicianKey: bodyMusicianKey } = req.body;
     if (!name || !email || !password) return res.status(400).json({ message: 'Name, email and password are required.' });
 
