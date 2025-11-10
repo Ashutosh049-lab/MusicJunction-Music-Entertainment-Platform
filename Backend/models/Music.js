@@ -154,8 +154,9 @@ musicSchema.virtual('formattedDuration').get(function() {
 });
 
 // Compound Indexes for Optimized Queries
-// Unique constraint for external sources
-musicSchema.index({ source: 1, externalId: 1 }, { unique: true, sparse: true });
+// Unique constraint for external sources (only when externalId exists)
+musicSchema.index({ externalId: 1 }, { unique: true, sparse: true, partialFilterExpression: { externalId: { $exists: true, $ne: null } } });
+musicSchema.index({ source: 1, externalId: 1 });
 
 // Full-text search
 musicSchema.index({ 
