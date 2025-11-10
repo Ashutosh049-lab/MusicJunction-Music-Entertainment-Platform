@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Folder, UserPlus, Users, FileAudio, Calendar, 
-  Trash2, X, Settings, Music
+  Trash2, X
 } from 'lucide-react';
 import axios from '../lib/axios';
 import { useAuthStore } from '../store/authStore';

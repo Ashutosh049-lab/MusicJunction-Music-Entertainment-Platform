@@ -1,9 +1,12 @@
 export interface User {
   id: string;
+  _id?: string; // MongoDB ID
   email: string;
   username: string;
+  name?: string; // Display name
   role: 'musician' | 'listener';
   avatar?: string;
+  avatarUrl?: string; // Alias for avatar
   bio?: string;
   followers?: number;
   following?: number;

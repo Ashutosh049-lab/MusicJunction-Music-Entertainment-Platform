@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Wand2, Music, Loader2 } from 'lucide-react';
+import { Wand2, Loader2 } from 'lucide-react';
 import apiClient from '../lib/axios';
-import { LoadingSpinner } from '../components/ui';
 import { toast } from 'sonner';
 
 const Mixer = () => {

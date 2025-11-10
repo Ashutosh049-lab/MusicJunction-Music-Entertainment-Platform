@@ -34,7 +34,7 @@ interface ActivityItem {
 type FeedType = 'public' | 'following' | 'trending';
 
 const ActivityFeed = () => {
-  const { user } = useAuthStore();
+  const { user: _user } = useAuthStore();
   const [feedType, setFeedType] = useState<FeedType>('public');
   const [activities, setActivities] = useState<ActivityItem[]>([]);
   const [loading, setLoading] = useState(true);

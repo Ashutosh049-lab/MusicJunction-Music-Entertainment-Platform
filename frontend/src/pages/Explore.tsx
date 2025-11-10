@@ -159,7 +159,6 @@ const Explore = () => {
           </div>
           <div className="flex gap-2">
             {MOODS.map((mood) => {
-              const Icon = mood.icon;
               return (
                 <button
                   key={mood.id}

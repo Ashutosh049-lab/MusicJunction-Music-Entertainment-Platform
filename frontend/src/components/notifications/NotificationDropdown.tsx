@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Bell, Check, CheckCheck, X } from 'lucide-react';
+import { Bell, CheckCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import apiClient from '../../lib/axios';
 import { formatTimeAgo } from '../../lib/utils';

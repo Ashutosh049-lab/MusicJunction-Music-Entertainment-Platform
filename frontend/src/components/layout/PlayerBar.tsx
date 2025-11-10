@@ -1,4 +1,4 @@
-import { useEffect, useRef, useRef as useRefAlias } from 'react';
+import { useEffect, useRef } from 'react';
 import { Play, Pause, SkipBack, SkipForward, Volume2, Repeat, Shuffle } from 'lucide-react';
 import { usePlayerStore } from '../../store/playerStore';
 import { useAuthStore } from '../../store/authStore';

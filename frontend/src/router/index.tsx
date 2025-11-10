@@ -15,7 +15,6 @@ import Explore from '../pages/Explore';
 import Playlists from '../pages/Playlists';
 import PlaylistDetail from '../pages/PlaylistDetail';
 import Mixer from '../pages/Mixer';
-import Workspace from '../pages/Workspace';
 import Projects from '../pages/Projects';
 import ProjectDetail from '../pages/ProjectDetail';
 import ActivityFeed from '../pages/ActivityFeed';

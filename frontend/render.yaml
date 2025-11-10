@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: musicjunction-frontend
+    runtime: node
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: VITE_API_URL
+        value: https://musicjunction-music-entertainment-zi65.onrender.com/api
+      - key: VITE_SOCKET_URL
+        value: https://musicjunction-music-entertainment-zi65.onrender.com
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-XSS-Protection
+        value: 1; mode=block
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

@@ -232,7 +232,7 @@ const TrackPage = () => {
                   </span>
                   <span className="flex items-center space-x-1">
                     <Heart className="h-4 w-4" />
-                    <span>{formatNumber(track.likesCount || track.likes?.length || 0)} likes</span>
+                    <span>{formatNumber(track.likesCount || track.likes || 0)} likes</span>
                   </span>
                 </div>
 
@@ -264,7 +264,7 @@ const TrackPage = () => {
                     <Heart className={`h-5 w-5 ${track.isLiked ? 'fill-current' : ''}`} />
                   </button>
 
-                  <button onClick={handleShare} className="p-3 border border-input rounded-lg hover:bg-secondary transition">
+                  <button onClick={() => handleShare()} className="p-3 border border-input rounded-lg hover:bg-secondary transition">
                     <Share2 className="h-5 w-5" />
                   </button>
 

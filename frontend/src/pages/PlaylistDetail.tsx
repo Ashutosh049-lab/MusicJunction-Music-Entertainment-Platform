@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  Music, Heart, UserPlus, Share2, MoreVertical, 
+  Music, Heart, UserPlus, 
   Play, Trash2, Clock, User, X 
 } from 'lucide-react';
 import axios from '../lib/axios';
@@ -22,6 +22,8 @@ interface Track {
   fileUrl?: string;
   audioUrl?: string;
   coverUrl?: string;
+  genre: string;
+  createdAt: string;
 }
 
 interface Playlist {
@@ -91,6 +93,8 @@ const PlaylistDetail = () => {
                   audioUrl: m.audioUrl || m.fileUrl || (m._id ? `/api/music/stream/${m._id}` : undefined),
                   coverUrl: m.coverImage || m.coverUrl,
                   uploadedBy: m.uploadedBy || m.user,
+                  genre: m.genre || 'Unknown',
+                  createdAt: m.createdAt || new Date().toISOString(),
                 } as any;
               })
             : [],

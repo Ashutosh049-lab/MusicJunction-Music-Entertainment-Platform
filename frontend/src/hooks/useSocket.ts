@@ -79,13 +79,16 @@ export const useSocket = (options?: UseSocketOptions) => {
 };
 
 // Hook for notifications
-export const useNotifications = () => {
+export const useNotifications = (onNotification?: (notification: any) => void) => {
   const [notifications, setNotifications] = useState<any[]>([]);
 
   const { emit } = useSocket({
     events: {
       'notification': (notification: any) => {
         setNotifications((prev) => [notification, ...prev]);
+        if (onNotification) {
+          onNotification(notification);
+        }
       },
     },
   });

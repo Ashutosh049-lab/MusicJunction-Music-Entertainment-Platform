@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  User, Music, ListMusic, Activity, BarChart3, 
+  Music, ListMusic, Activity, BarChart3, 
   Calendar, MapPin, Link as LinkIcon 
 } from 'lucide-react';
 import axios from '../lib/axios';
@@ -13,15 +13,17 @@ import TrackCard from '../components/music/TrackCard';
 
 interface Track {
   _id: string;
+  id?: string;
   title: string;
   artist: string;
-  genre?: string;
+  genre: string;
   duration: number;
   playCount?: number;
   likesCount?: number;
   fileUrl?: string;
   coverUrl?: string;
   uploadedBy?: string;
+  createdAt: string;
 }
 
 interface Playlist {

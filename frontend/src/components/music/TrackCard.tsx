@@ -96,7 +96,7 @@ const TrackCard = ({ track, onLike }: TrackCardProps) => {
         {/* Actions */}
         <div className="flex items-center justify-between mt-3 pt-3 border-t">
           <button
-            onClick={() => onLike && onLike(track.id)}
+            onClick={() => onLike && track.id && onLike(track.id)}
             className={`flex items-center space-x-1 text-sm transition ${
               track.isLiked ? 'text-red-500' : 'text-muted-foreground hover:text-red-500'
             }`}

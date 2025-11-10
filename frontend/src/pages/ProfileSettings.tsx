@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { User, Lock, Save, Camera } from 'lucide-react';
+import { User, Lock, Save } from 'lucide-react';
 import axios from '../lib/axios';
 import { useAuthStore } from '../store/authStore';
 import { toast } from 'sonner';
