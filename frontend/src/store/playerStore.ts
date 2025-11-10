@@ -50,7 +50,8 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         const id = (track as any)._id || (track as any).id;
         if (id) srcPath = `/api/music/stream/${id}`;
       }
-      const fullUrl = srcPath.startsWith('http') ? srcPath : `http://localhost:8085${srcPath}`;
+      const base = ((import.meta as any).env?.VITE_API_URL?.replace(/\/api$/, '')) || 'http://localhost:8085';
+      const fullUrl = srcPath.startsWith('http') ? srcPath : `${base}${srcPath}`;
       console.log('🎵 Setting audio source:', fullUrl);
       console.log('Track data:', track);
       audio.src = fullUrl;

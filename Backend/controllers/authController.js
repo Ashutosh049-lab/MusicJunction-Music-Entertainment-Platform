@@ -13,6 +13,9 @@ if (!JWT_SECRET) {
 }
 
 const generateToken = (user) => {
+  if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET not configured');
+  }
   const payload = { id: user._id, role: user.role, email: user.email };
   return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 };
@@ -56,7 +59,8 @@ exports.register = async (req, res) => {
     });
   } catch (err) {
     console.error('register error', err);
-    res.status(500).json({ message: 'Server error' });
+    const message = err?.message && err.message.includes('JWT_SECRET') ? 'Server configuration error' : 'Server error';
+    res.status(500).json({ message });
   }
 };
 
@@ -87,7 +91,8 @@ exports.login = async (req, res) => {
     });
   } catch (err) {
     console.error('login error', err);
-    res.status(500).json({ message: 'Server error' });
+    const message = err?.message && err.message.includes('JWT_SECRET') ? 'Server configuration error' : 'Server error';
+    res.status(500).json({ message });
   }
 };
 

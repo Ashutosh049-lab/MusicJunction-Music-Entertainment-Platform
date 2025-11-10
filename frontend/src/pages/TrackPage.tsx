@@ -293,7 +293,7 @@ const TrackPage = () => {
               className="bg-card border rounded-lg p-6"
             >
               <h2 className="font-semibold mb-4">Waveform</h2>
-              <Waveform audioUrl={`http://localhost:8085${track.fileUrl}`} height={150} />
+              <Waveform audioUrl={`${((import.meta as any).env?.VITE_API_URL?.replace(/\/api$/, '')) || 'http://localhost:8085'}${track.fileUrl}`} height={150} />
             </motion.div>
           )}
           {/* Rating */}

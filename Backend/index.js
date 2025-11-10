@@ -31,12 +31,20 @@
 
 
 // index.js
-require("dotenv").config(); // load first!
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") }); // load .env from Backend folder
 
 const http = require("http");
 const connectDB = require("./config/db");
 const app = require("./app");
-const { attachWebSocket } = require("./realtime/ws");
+
+// WebSocket (optional)
+let attachWebSocket = () => {};
+try {
+  ({ attachWebSocket } = require("./realtime/ws"));
+} catch (err) {
+  console.warn("Realtime disabled: ./realtime/ws not found");
+}
 
 // Connect DB and start server
 connectDB();
