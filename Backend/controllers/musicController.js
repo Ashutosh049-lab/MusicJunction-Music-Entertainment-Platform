@@ -9,6 +9,7 @@ exports.uploadTrack = async (req, res) => {
   try {
     console.log('Upload request body:', req.body);
     console.log('Upload request file:', req.file);
+    console.log('User from token:', req.user);
     
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
@@ -17,24 +18,33 @@ exports.uploadTrack = async (req, res) => {
       return res.status(400).json({ message: "Title, artist, and genre are required" });
     }
 
-    const newTrack = await Music.create({
+    const trackData = {
       title,
       artist,
       genre,
-      album,
-      description,
+      album: album || undefined,
+      description: description || undefined,
       duration: duration ? parseFloat(duration) : 0,
       source: 'local',
       fileUrl: `/uploads/${req.file.filename}`,
       fileSize: req.file.size,
       mimeType: req.file.mimetype,
       uploadedBy: req.user.id,
-    });
+    };
 
-    res.status(201).json(newTrack);
+    console.log('Creating track with data:', trackData);
+    const newTrack = await Music.create(trackData);
+    console.log('Track created successfully:', newTrack._id);
+
+    res.status(201).json({ success: true, track: newTrack });
   } catch (err) {
-    console.error("Upload Error:", err);
-    res.status(500).json({ message: "Server error while uploading music" });
+    console.error("Upload Error Details:", err);
+    console.error("Error stack:", err.stack);
+    res.status(500).json({ 
+      message: "Server error while uploading music",
+      error: err.message,
+      details: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    });
   }
 };
 

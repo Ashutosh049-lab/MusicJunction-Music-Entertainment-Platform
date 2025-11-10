@@ -13,7 +13,7 @@ const musicSchema = new mongoose.Schema({
   album: { type: String, trim: true },
   albumId: { type: String }, // Reference if album is a separate entity
   trackNumber: { type: Number, min: 1 },
-  duration: { type: Number, required: true }, // duration in seconds
+  duration: { type: Number, default: 0 }, // duration in seconds
   
   // Source Information
   source: { 
