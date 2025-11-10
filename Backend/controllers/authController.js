@@ -52,10 +52,15 @@ exports.register = async (req, res) => {
     const user = await User.create({ name, username, email, password: hashed, role });
 
     const token = generateToken(user);
+    // For simplicity, use the same token as refresh token
+    // In production, you'd generate a separate longer-lived refresh token
+    const refreshToken = token;
+    
     res.status(201).json({
       message: 'User registered successfully',
       user: { id: user._id, name: user.name, email: user.email, role: user.role },
-      token
+      token,
+      refreshToken
     });
   } catch (err) {
     console.error('register error', err);
@@ -84,10 +89,15 @@ exports.login = async (req, res) => {
     if (!match) return res.status(401).json({ message: 'Invalid credentials' });
 
     const token = generateToken(user);
+    // For simplicity, use the same token as refresh token
+    // In production, you'd generate a separate longer-lived refresh token
+    const refreshToken = token;
+    
     res.json({
       message: 'Login successful',
       user: { id: user._id, name: user.name, email: user.email, role: user.role },
-      token
+      token,
+      refreshToken
     });
   } catch (err) {
     console.error('login error', err);
@@ -142,5 +152,33 @@ exports.changePassword = async (req, res) => {
   } catch (err) {
     console.error('changePassword error', err);
     res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Refresh token endpoint
+exports.refresh = async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+    if (!refreshToken) return res.status(400).json({ message: 'Refresh token is required.' });
+
+    // For simplicity, we'll treat the refreshToken as a JWT too
+    // In production, you'd want a separate refresh token store/validation
+    const decoded = jwt.verify(refreshToken, JWT_SECRET);
+    const user = await User.findById(decoded.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    // Generate new access token
+    const newToken = generateToken(user);
+    res.json({
+      message: 'Token refreshed successfully',
+      token: newToken
+    });
+  } catch (err) {
+    console.error('refresh error', err);
+    if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+      return res.status(401).json({ message: 'Invalid or expired refresh token' });
+    }
+    const message = err?.message && err.message.includes('JWT_SECRET') ? 'Server configuration error' : 'Server error';
+    res.status(500).json({ message });
   }
 };

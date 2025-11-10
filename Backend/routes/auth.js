@@ -8,6 +8,7 @@ const auth = require('../middlewares/auth');
 // Public
 router.post('/register', authController.register);
 router.post('/login', authController.login);
+router.post('/refresh', authController.refresh);
 
 // Protected - requires Bearer token
 router.get('/me', auth, authController.getProfile);
