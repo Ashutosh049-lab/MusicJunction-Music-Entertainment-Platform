@@ -87,7 +87,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-3">
           {/* Left: Mobile menu + Logo */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0">
             <button
               className="md:hidden p-2 rounded-md hover:bg-secondary focus-visible:ring-2 focus-visible:ring-primary"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
@@ -97,9 +97,10 @@ const Navbar = () => {
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
 
-            <Link to="/" className="flex items-center gap-2 text-primary">
-              <Music className="h-8 w-8" />
-              <span className="font-display text-xl font-bold">MusicJunction</span>
+            <Link to="/" className="flex items-center gap-2 text-primary min-w-0">
+              <Music className="h-8 w-8 shrink-0" />
+              {/* Hide long brand text on very small screens to prevent horizontal overflow */}
+              <span className="font-display text-xl font-bold truncate hidden sm:inline">MusicJunction</span>
             </Link>
           </div>
 
@@ -167,7 +168,8 @@ const Navbar = () => {
                 </div>
               </>
             ) : (
-              <div className="flex items-center gap-2">
+              // Hide auth CTAs on small screens; they are available in the mobile menu panel below.
+              <div className="hidden md:flex items-center gap-2">
                 <Link
                   to="/login"
                   className="px-4 py-2 text-sm font-medium hover:text-primary transition"

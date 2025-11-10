@@ -105,6 +105,10 @@
   * {
     border-color: hsl(var(--border));
   }
+  html, body {
+    max-width: 100%;
+    overflow-x: clip; /* prevent horizontal scroll on mobile */
+  }
   body {
     background: #100325; /* Solid #100325 dark purple background */
     background-attachment: fixed;
