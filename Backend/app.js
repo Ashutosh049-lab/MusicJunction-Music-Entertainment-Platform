@@ -47,7 +47,8 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/music", musicRoutes);
-app.use("/uploads", express.static("uploads"));
+// Static files with CORS headers
+app.use("/uploads", cors(corsOptions), express.static("uploads"));
 app.use("/api/projects", projectRoutes);
 app.use("/api/ratings", ratingRoutes);
 app.use("/api/comments", commentRoutes);
