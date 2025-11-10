@@ -380,7 +380,7 @@ This project is licensed under the ISC License.
 
 ## 👥 Authors
 
-- GitHub: [@yourusername](https://github.com/yourusername)
+- GitHub: [@Ashutosh049-lab](https://github.com/Ashutosh049-lab)
 
 ## 🐛 Known Issues
 
